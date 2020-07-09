@@ -9,10 +9,12 @@ case System.get_env("BORS_TEST_DATABASE") do
       database: "bors_test",
       hostname: {:system, "MYSQL_HOST", "localhost"},
       pool: Ecto.Adapters.SQL.Sandbox
+
   _ ->
     config :bors, BorsNG.Database.Repo,
       adapter: Ecto.Adapters.Postgres,
-      url: {:system, "DATABASE_URL_TEST", "postgresql://postgres:Postgres1234@localhost/bors_test"},
+      url:
+        {:system, "DATABASE_URL_TEST", "postgresql://postgres:Postgres1234@localhost/bors_test"},
       pool: Ecto.Adapters.SQL.Sandbox
 end
 
@@ -24,5 +26,6 @@ config :bors, BorsNG.Endpoint,
 
 config :bors, :server, BorsNG.GitHub.ServerMock
 config :bors, :oauth2, BorsNG.GitHub.OAuth2Mock
+config :bors, :is_test, true
 
 config :bors, :celebrate_new_year, false
